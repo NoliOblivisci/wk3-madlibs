@@ -3,32 +3,35 @@ import React, { Component } from 'react';
 import Input from './input';
 import Content from './content';
 
+const initialState = {
+                color: '',
+                pluralNoun: '',
+                adjectiveOne: '',
+                celebOne: '',
+                adjectiveTwo: '',
+                nounOne: '',
+                numberOne: '',
+                numberTwo: '',
+                nounTwo: '',
+                adjectiveThree: '',
+                celebTwo: '',
+                celebThree: '',
+                adjectiveFour: '',
+                nounThree: '',
+                celebFour: '',
+                adjectiveFive: '',
+                contentVisible: false
+            }
+
 class Card extends Component {
     
     constructor() {
         super()
         
-        this.state = {
-            color: '',
-            pluralNoun: '',
-            adjectiveOne: '',
-            celebOne: '',
-            adjectiveTwo: '',
-            nounOne: '',
-            numberOne: '',
-            numberTwo: '',
-            nounTwo: '',
-            adjectiveThree: '',
-            celebTwo: '',
-            celebThree: '',
-            adjectiveFour: '',
-            nounThree: '',
-            celebFour: '',
-            adjectiveFive: '',
-            contentVisible: false
-        }
+        this.state = initialState;
         
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
     
     handleInputChange(event) {
@@ -37,7 +40,11 @@ class Card extends Component {
     
     handleFormSubmit(event) {
         event.preventDefault()
-        this.setState({ contentVisible: !this.state.contentVisible })
+        if(this.state.contentVisible) {
+            this.setState(initialState)
+        } else {
+            this.setState({ contentVisible: true })
+        }  
     }
     
     render() {
@@ -72,9 +79,9 @@ class Card extends Component {
                     }
                 </div>
                 
-                <button type="submit">{this.state.contentVisible ? 'Generate Mad Lib' : 'Clear Mad Lib'}</button>
+                <button type="submit">{!this.state.contentVisible ? 'Generate Mad Lib' : 'Clear Mad Lib'}</button>
                 {
-                    this.state.contentVisible ? <Content data={this.state}/> : <div></div>
+                    this.state.contentVisible ? <Content data={this.state}/> : ''
                 }
             </form>
             
